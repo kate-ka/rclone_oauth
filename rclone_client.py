@@ -37,6 +37,27 @@ drive_type = {drive_type}
 
 
 
+class BaseRcloneConfig:
+    def __init__(self, **kwargs):
+        self.cofig_params = kwargs
+        self._path = None
+         
+    def _save_config(self):
+        # save and return path
+        pass
+
+    @property
+    def path(self):
+        if not self._path:
+            self._path = self._save_config()
+        return self._path
+
+
+class OneDriveRcloneConfig(BaseRcloneConfig):
+    @classmethod
+    def create(cls, drive_id, name, drive_type):
+        return cls(drive_id=drive_id, name=name, drive_type=drive_type)
+
 
 def test():
     token = {
